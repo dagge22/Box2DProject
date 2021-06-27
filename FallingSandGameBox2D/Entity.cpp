@@ -28,9 +28,6 @@ void Entity::Update()
 	shape->setPosition(body->GetPosition().x * (float)World::SCALE, body->GetPosition().y * (float)World::SCALE);
 	shape->setRotation(body->GetAngle() * 180 / b2_pi);
 	position = shape->getPosition();
-
-	//std::cout << position.x << " " << position.y << "\n";
-	//std::cout << body->GetPosition().x << " " << body->GetPosition().y << "\n";
 }
 
 // Only works for dynamic b2 bodies (?)
@@ -60,6 +57,7 @@ void Entity::EnablePhysics(bool enable)
 	physicsEnabled = enable;
 }
 
+// This could all be cleaned up and fixed. But not today :)
 void Entity::SetCircle(float radius)
 {
 	bodyDef.type = physicsEnabled ? b2BodyType::b2_dynamicBody : b2BodyType::b2_staticBody;
@@ -151,13 +149,12 @@ void Entity::SetFixtureDef(const b2FixtureDef& def)
 void Entity::Rotate(float angle)
 {
 	body->SetTransform(body->GetPosition(), angle);
-	//shape->setPosition(body->GetPosition().x * (float)World::SCALE, body->GetPosition().y * (float)World::SCALE);
 	angle *= 180 / b2_pi;
 	std::cout << "angle: " << angle << "\n";
 	shape->setRotation(angle);
 }
 
-void Entity::MarkedForDelete()
+void Entity::Delete()
 {
 	markedForDelete = true;
 }

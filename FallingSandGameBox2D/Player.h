@@ -13,12 +13,12 @@ public:
 
 	void Init() override;
 
-	void StartCollision(Entity* otherEntity) override;
-	void EndCollision(Entity* otherEntity) override;
-
 private:
 	void Input();
 	b2Vec2 direction;
+
+	void StartCollision(Entity* otherEntity) override;
+	void EndCollision(Entity* otherEntity) override;
 
 	void Move();
 

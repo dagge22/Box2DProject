@@ -23,7 +23,6 @@ public:
 	void Update();
 
 	void CreateEntity(Entity* entity);
-	void CreatePhysicsObject(PhysicsObject* object);
 	void CreateRectangle(Entity* entity, const sf::Vector2f& position, const sf::Vector2f& size);
 	void CreateCircle(Entity* entity, float radius);
 	void CreateRectangle(Entity* entity, const sf::Vector2f& size);
@@ -35,8 +34,11 @@ public:
 	sf::RenderWindow* GetWindow() const { return window; }
 
 	std::vector<class Entity*> disableList;
+	void DeleteEntity(Entity* entity);
+
 private:
 	void CreateEntityInternal(Entity* entity);
+	void DeleteEntity(Entity* entity, int index);
 	sf::RenderWindow* window;
 
 	std::vector<class Entity*> enteties;
@@ -55,8 +57,6 @@ private:
 	const int32 positionIterations = 2;
 
 	sf::Clock clock;
-
-	//void Explosion(const b2Vec2& position, float radius, float force);
 
 protected:
 

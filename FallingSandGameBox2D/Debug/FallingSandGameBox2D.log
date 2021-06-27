@@ -1,1 +1,10 @@
-﻿  FallingSandGameBox2D.vcxproj -> C:\Users\Dag\source\repos\FallingSandGameBox2D\Debug\FallingSandGameBox2D.exe
+﻿  Main.cpp
+  World.cpp
+C:\Users\Dag\source\repos\FallingSandGameBox2D\FallingSandGameBox2D\Main.cpp(19,12): warning C4244:  'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Dag\source\repos\FallingSandGameBox2D\FallingSandGameBox2D\World.cpp(20,12): warning C4244:  'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Dag\source\repos\FallingSandGameBox2D\FallingSandGameBox2D\World.cpp(43,53): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Dag\source\repos\FallingSandGameBox2D\FallingSandGameBox2D\World.cpp(43,26): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Dag\source\repos\FallingSandGameBox2D\FallingSandGameBox2D\World.cpp(49,21): warning C4018:  '<': signed/unsigned mismatch
+  Generating Code...
+C:\Users\Dag\source\repos\FallingSandGameBox2D\FallingSandGameBox2D\World.cpp(167,20): warning C4018:  '<': signed/unsigned mismatch
+  FallingSandGameBox2D.vcxproj -> C:\Users\Dag\source\repos\FallingSandGameBox2D\Debug\FallingSandGameBox2D.exe

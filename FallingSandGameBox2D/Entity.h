@@ -42,7 +42,7 @@ public:
 	virtual void StartCollision(Entity* otherEntity) { };
 	virtual void EndCollision(Entity* otherEntity) { };
 
-	void MarkedForDelete();
+	void Delete();
 	bool IsMarkedForDeletion() const { return markedForDelete; }
 
 	//void SetEnable(bool enable);

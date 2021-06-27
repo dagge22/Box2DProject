@@ -85,6 +85,7 @@ void Player::Input()
 	}
 }
 
+// Temp movement. Will redo it
 void Player::Move()
 {
 	b2Vec2 vel = body->GetLinearVelocity();
@@ -113,15 +114,8 @@ void Player::Move()
 
 			direction.x = ropeDirection.x * ropeReelSpeed;
 			direction.y = ropeDirection.y * ropeReelSpeed; 
-
-			//SetPosition(position + ropeDirection);
 		}
 	}
-
-	//float velChange = direction.x - vel.x;
-	//float impulse = body->GetMass() * velChange;
-	//body->ApplyLinearImpulseToCenter(b2Vec2(impulse, 0), true);
-
 	const float velChangeX = direction.x - vel.x;
 	const float velChangeY = direction.y - vel.y;
 	const float impulseX = body->GetMass() * velChangeX;
@@ -151,19 +145,16 @@ void Player::ShootLine()
 
 	const sf::Vector2i mousePos = sf::Mouse::getPosition(*world->GetWindow());
 	const sf::Vector2f spawnPosition(position.x, position.y - size.x - 10);
-	sf::Vector2f direction(mousePos.x - spawnPosition.x, mousePos.y - spawnPosition.y);
-	//const float angle = std::atan2(direction.x, direction.y);
 
-	//projectile->GetBody()->SetAngularVelocity(0);
+	sf::Vector2f direction(mousePos.x - spawnPosition.x, mousePos.y - spawnPosition.y);
+	const float length = std::sqrtf(direction.x * direction.x + direction.y * direction.y);
+	direction.x /= length;
+	direction.y /= length;
+
 	projectile->GetBody()->SetLinearVelocity(b2Vec2(0, 0));
 	projectile->SetPosition(spawnPosition);
 	projectile->SetShouldDraw(true);
 	projectile->GetBody()->SetEnabled(true);
-
-	const float length = std::sqrtf(direction.x * direction.x + direction.y * direction.y);
-
-	direction.x /= length;
-	direction.y /= length;
 
 	const b2Vec2 impulse(direction.x * 8, direction.y * 8);
 	projectile->GetBody()->ApplyLinearImpulseToCenter(impulse, true);

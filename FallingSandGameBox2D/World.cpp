@@ -48,6 +48,11 @@ void World::Update()
 
 		for (int i = 0; i < enteties.size(); i++)
 		{
+			if (enteties[i]->IsMarkedForDeletion())
+			{
+				DeleteEntity(enteties[i], i);
+				continue;
+			}
 			enteties[i]->Update();
 			if (enteties[i]->ShouldDraw())
 			{
@@ -63,9 +68,28 @@ void World::Update()
 			++counter;
 		}
 
-		DeleteEnteties();
-
 		frameLimitTimer = 0;
+	}
+}
+
+void World::DeleteEntity(Entity* entity, int index)
+{
+	enteties.erase(enteties.begin() + index);
+	delete entity;
+}
+
+void World::DeleteEntity(Entity* entity)
+{
+	int counter = 0;
+	for (Entity* e : enteties)
+	{
+		if (e == entity)
+		{
+			delete e;
+			enteties.erase(enteties.begin() + counter);
+			break;
+		}
+		++counter;
 	}
 }
 
@@ -94,16 +118,9 @@ void World::CreateEntity(Entity* entity)
 	CreateEntityInternal(entity);
 }
 
-void World::CreatePhysicsObject(PhysicsObject* object)
-{
-	object->SetWorld(this);
-	enteties.push_back(object);
-	object->Init();
-}
-
 void World::CreateRectangle(Entity* entity, const sf::Vector2f& position, const sf::Vector2f& size)
 {
-	sf::RectangleShape* rec = new sf::RectangleShape(size);
+	sf::RectangleShape* rec = new sf::RectangleShape(size);		// Need to delete these i just realized
 	rec->setPosition(position);
 	rec->setFillColor(sf::Color::White);
 
@@ -159,34 +176,9 @@ void World::CreateConvex(Entity* entity, const std::vector<sf::Vector2f>& points
 	entity->Init();
 }
 
-//void World::Explosion(const b2Vec2& position, float radius, float force)
-//{
-//	b2Body* itr = b2world->GetBodyList();
-//	
-//	while (itr != nullptr)
-//	{
-//		b2Vec2 vec(itr->GetPosition() - position);
-//		if (vec.LengthSquared() < radius * radius)
-//		{
-//			vec.Normalize();
-//			vec.x *= force;
-//			vec.y *= force;
-//			itr->ApplyLinearImpulseToCenter(vec, true);
-//		}
-//
-//		itr = itr->GetNext();
-//	}
-//}
-
 // ------------------------ Collision ---------------------------
 void ContactListener::ContactListener::BeginContact(b2Contact* contact)
 {
-	//b2Fixture* defA = contact->GetFixtureA();
-	//b2Fixture* defB = contact->GetFixtureB();
-
-	//b2BodyUserData userDataA = contact->GetFixtureA()->GetBody()->GetUserData();
-	//b2BodyUserData userDataB = contact->GetFixtureB()->GetBody()->GetUserData();
-
 	b2FixtureUserData dataA = contact->GetFixtureA()->GetUserData();
 	b2FixtureUserData dataB = contact->GetFixtureB()->GetUserData();
 
